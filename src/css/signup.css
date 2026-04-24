@@ -19,7 +19,7 @@ body{
     margin-bottom: 30px;
     font-size: 32px;
 }
-.loginLogo {
+.signupLogo {
     display: block;
     background: black;
     margin: 0 auto 0 auto;
@@ -29,41 +29,22 @@ body{
     padding: 10px;
 }
 .inputBox{
-    position: relative;
     display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+    flex-direction: column;
+    margin-bottom: 10px;
 }
-.inputBox img{
-    position: absolute;
-    left: 4%;
-    top: 30%;
+.inputBox label{
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 7px;
+    margin-left: 10px;
 }
 .inputBox input{
     width: 90%;
     height: 50px;
     border-radius: 25px;
     border: 2px solid lightgray;
-    padding: 0px 15px 0px 40px;
-}
-
-.forgetPassword{
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-}
-.Forget{
-    color: black;
-    font-weight: bold;
-}
-.checkBoxLabel{
-    font-weight: bold;
-    display: flex;
-    align-content: center;
-    gap: 5px;
-}
-.checkBoxLabel input[type="checkbox"]{
-    margin: 0;
+    padding: 0px 10px;
 }
 
 input[type="submit"]{
@@ -84,11 +65,11 @@ input[type="submit"]{
 input[type="submit"]:hover{
     background-color: rgb(43, 42, 42);
 }
-.registerLink{
+
+.wrapper a{
+    display: block;
     text-align: center;
-    margin-top: 25px;
-}
-.registerLink a{
+    margin-top: 15px;
     color: black;
     font-weight: bold;
 }
@@ -97,8 +78,5 @@ input[type="submit"]:hover{
 .wrapper{
     width: 100%;
     box-sizing: border-box;
-}
-.forgetPassword{
-    gap: 20px;
 }
 }

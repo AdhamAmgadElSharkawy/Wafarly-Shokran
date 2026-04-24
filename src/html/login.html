@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/login.css">
+    </head>
+    
+    <body>
+        <div>
+            <form class="wrapper">
+                <img class = "loginLogo" src="../images/wallet_20dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.svg" alt="logo">
+                <h1>Login</h1>
+                <div class="inputBox">
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                    <img src="../images/person_20dp_999999_FILL0_wght400_GRAD0_opsz20.svg" alt="">
+                </div>
+
+                <div class="inputBox">
+                    <input type = "password" id="password" name = "password" placeholder="password" required>
+                    <img src="../images/lock_20dp_999999_FILL0_wght400_GRAD0_opsz20.svg" alt="">
+                </div>
+                
+                <div class="forgetPassword">
+                    <label class="checkBoxLabel"><input type="checkbox">Remember me</label>
+                    <a href="../html/forget_password.html" class="Forget">Forget Password?</a>
+                </div>
+                <input type = "submit" id="submit" name = "submit" value="Log in" required>
+
+                <div class="registerLink">
+                    <p>Don't have an account? <a href="../html/signup.html">Register</a></p>
+                </div>
+            </form>
+        </div>
+        <script src="../js/login.js"></script>
+        <script type="module" src="../js/main.js"></script>
+    </body>
+</html>
