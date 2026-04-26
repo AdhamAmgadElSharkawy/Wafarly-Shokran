@@ -55,7 +55,7 @@
 }
 .sideBar-footer a{
     text-decoration: none;
-    color: red;
+    color: black;
     display: block;
     font-weight: bold;
     font-size: 18px;
@@ -64,5 +64,5 @@
     transition: 0.3s;
 }
 .sideBar-footer a:hover{
-    background-color: lightcoral;
+    background-color: lightgray;
 }
