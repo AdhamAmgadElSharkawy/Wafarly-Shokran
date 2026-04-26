@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Transactions</title>
+    <link rel="stylesheet" href="../css/sideBar.css">
+    <link rel="stylesheet" href="../css/transaction.css">
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="SideBar">
+            <div class="sidebarLogo">
+                <h2>Wafarly Shokran</h2>
+                <p>for personal finance</p>
+            </div>
+            <ul>
+                <li class="sideBar-item">
+                    <a href="#">
+                        <span>dashboard</span>
+                    </a>
+                </li>
+                <li class="sideBar-item active">
+                    <a href="transaction.html">
+                        <span>transactions</span>
+                    </a>
+                </li>
+                <li class="sideBar-item">
+                    <a href="#">
+                        <span>goals</span>
+                    </a>
+                </li>
+                <li class="sideBar-item">
+                    <a href="#">
+                        <span>reports</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sideBar-footer">
+                <a href="#">
+                    <span>logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-wrapper">
+            <div class="app-container">
+                <div class="header">
+                    <div class="logo-area">
+                        <h1>BudgetPro</h1>
+                        <p>Personal Finance</p>
+                    </div>
+                </div>
+                <main class="main-content">
+                    <div class="filter-bar">
+                        <div class="search-box">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" class="search-input" placeholder="Search transaction">
+                        </div>
+                        <div class="filter-controls">
+                            <select class="filter-select">
+                                <option>All Categories</option>
+                                <option>Housing</option>
+                                <option>Utilities</option>
+                                <option>Food & Dining</option>
+                                <option>Shopping</option>
+                                <option>Transportation</option>
+                                <option>Entertainment</option>
+                            </select>
+                            <select class="filter-select">
+                                <option>All Accounts</option>
+                                <option>Checking</option>
+                                <option>Credit Card</option>
+                                <option>Savings</option>
+                            </select>
+                            <a href="Add_tran.html"><button class="add-btn">+ Add Transaction</button></a>
+                        </div>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="transactions-table">
+                            <thead>
+                                <tr>
+                                    <th>DATE</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>CATEGORY</th>
+                                    <th>ACCOUNT</th>
+                                    <th>AMOUNT</th>
+                                    <th class="actions-header">ACTIONS</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

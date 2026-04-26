@@ -1,0 +1,274 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f0f2f8;
+    font-family: Helvetica, sans-serif;
+    color: #1a1f2e;
+}
+
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-wrapper {
+    flex: 1;
+    overflow-x: auto;
+    padding: 2rem;
+}
+
+.app-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 28px;
+    box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    padding: 1.75rem 2rem 1rem 2rem;
+    border-bottom: 1px solid #edf2f7;
+    background: #ffffff;
+}
+
+.logo-area h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #1f3b4c, #2a6f6f);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    letter-spacing: -0.3px;
+}
+
+.logo-area p {
+    font-size: 0.85rem;
+    color: #5b6e8c;
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+/* Main Content */
+.main-content {
+    padding: 2rem;
+}
+
+/* Filter Bar */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background: #f9fbfe;
+    padding: 0.75rem 1rem;
+    border-radius: 60px;
+}
+
+.search-box {
+    flex: 2;
+    min-width: 220px;
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid #e2edf7;
+    border-radius: 48px;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s;
+}
+
+.search-box:focus-within {
+    border-color: #2a9d8f;
+    box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.15);
+}
+
+.search-icon {
+    color: #8ba0bc;
+    margin-right: 8px;
+    font-size: 0.9rem;
+}
+
+.search-input {
+    border: none;
+    background: transparent;
+    font-size: 0.9rem;
+    width: 100%;
+    outline: none;
+    font-family: inherit;
+}
+
+.search-input::placeholder {
+    color: #b9c4d4;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter-select {
+    background: white;
+    border: 1px solid #dfe8f2;
+    padding: 0.5rem 1.2rem;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #1f3b4c;
+    font-family: inherit;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.filter-select:hover {
+    background: #fafdff;
+    border-color: #cbdae6;
+}
+
+.add-btn {
+    background: #1f3b4c;
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.55rem 1.5rem;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.add-btn:hover {
+    background: #0f2e3c;
+    transform: scale(0.97);
+}
+
+/* Table Wrapper */
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 20px;
+    border: 1px solid #ecf3fa;
+    background: white;
+}
+
+/* Transactions Table */
+.transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    min-width: 800px;
+}
+
+.transactions-table th {
+    text-align: left;
+    padding: 1rem 1.2rem;
+    background: #fafdff;
+    font-weight: 600;
+    color: #3a5575;
+    border-bottom: 1px solid #e9f0f5;
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+}
+
+.transactions-table td {
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid #f0f4fa;
+    color: #1e2f45;
+    font-weight: 500;
+}
+
+
+/* Category Badge */
+.category-badge {
+    background: #edf4fc;
+    padding: 0.25rem 0.8rem;
+    border-radius: 40px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: inline-block;
+    color: #2c5f8a;
+}
+
+
+/* Actions Column */
+.actions-header {
+    text-align: center;
+    width: 100px;
+}
+
+.actions-cell {
+    text-align: center;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-layout {
+        flex-direction: column;
+    }
+
+    .main-wrapper {
+        padding: 1rem;
+    }
+
+    .main-content {
+        padding: 1.5rem;
+    }
+
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 24px;
+        padding: 1rem;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .filter-controls {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .filter-select,
+    .add-btn {
+        width: 100%;
+    }
+
+    .actions-header {
+        width: 70px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .transactions-table th,
+    .transactions-table td {
+        padding: 0.75rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .category-badge {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.6rem;
+    }
+
+    .header {
+        padding: 1.25rem 1.5rem 0.75rem 1.5rem;
+    }
+
+    .logo-area h1 {
+        font-size: 1.5rem;
+    }
+}
