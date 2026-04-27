@@ -8,11 +8,73 @@
     color: white; 
     border: none; 
     padding: 10px 20px; 
-    border-radius: 5px; 
+    border-radius: 10px; 
     cursor: pointer; 
     font-size: 16px;
     
 }
 .create_goal_button button:hover {
     background-color: rgb(43, 42, 42); 
+}
+.goals_list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 20px; 
+    margin-right: 20px;
+}
+.goals_list_item{
+    list-style-type: none;
+    border-style: solid;
+    border-color: #F7F9FB;
+    border-radius: 10px;
+    box-shadow:inset;
+    padding: 20px 20px;
+    
+}
+.goals_sublist{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px 20px; 
+}
+.goals_sublist_item{
+    list-style-type: none
+}
+.add_fund_button {
+    background-color: black; 
+    color: white; 
+    padding: 10px 20px; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    font-size: 16px;
+}
+.add_fund_button:hover {
+    background-color: rgb(43, 42, 42); 
+}
+.edit_button{
+    background-color: white; 
+    color: #314158; 
+    padding: 10px 20px; 
+    border-style: solid;
+    border-radius: 10px; 
+    border-width: 1px;
+    cursor: pointer; 
+    font-size: 16px;
+}
+.edit_button:hover{
+    background-color:#d7dbe0;
+}
+.delete_button{
+    background-color: white; 
+    color: #314158; 
+    padding: 10px 20px; 
+    border-radius: 10px; 
+    border-width: 1px;
+    border-style: solid;
+    cursor: pointer; 
+    font-size: 16px;
+}
+.delete_button:hover{
+    background-color:#d7dbe0;
 }
