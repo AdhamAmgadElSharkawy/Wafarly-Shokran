@@ -1,0 +1,18 @@
+.create_goal_button {
+    text-align: right;
+    margin-bottom: 20px; 
+    margin-right: 20px;
+}
+.create_goal_button button {
+    background-color: black; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 16px;
+    
+}
+.create_goal_button button:hover {
+    background-color: rgb(43, 42, 42); 
+}
