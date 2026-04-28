@@ -7,7 +7,7 @@
     </head>
     <body>
         <h1>Goals</h1>
-        <div class="create_goal_button"><button type="button">  + Create Goal</button></div>
+        <div class="create_goal_button"><button type="button" id="open_modal_btn">  + Create Goal</button></div>
         <ul class="goals_list">
                 <li class="goals_list_item">
                     <h2 class="goal_title">Goal 1</h2>
@@ -84,5 +84,27 @@
                     </div>
                 </li>
         </ul>
+
+        <div class="modal" id="goal_modal">
+            <div class="content">
+                <span class="close-btn" id="close_modal_btn">&times;</span>
+                <h2>Create New Goal</h2>
+                <form id="create_goal_form">
+                    <div class="inputs">
+                        <label for="goal_title">Goal Title</label>
+                        <input type="text" id="goal_title">
+                        <label for="goal_target">Target Amount ($)</label>
+                        <input type="number" id="goal_target">
+                        <label for="goal_category">Category</label>
+                        <input type="text" id="goal_category">
+                        <label for="goal_deadline">Deadline</label>
+                        <input type="date" id="goal_category">
+                        <button type="submit" id="submit_btn" class="submit_btn">Create Goal</button>
+                        <button type="button" id="cancel_btn" class="cancel_btn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script src="../js/create_goal.js"></script>
     </body>
 </html>
