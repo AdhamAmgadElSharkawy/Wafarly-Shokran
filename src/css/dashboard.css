@@ -11,7 +11,7 @@
 html,body{height:100%}
 body{
   margin:0;
-  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background:var(--bg);
   color:#0f1724;
 }
@@ -71,7 +71,22 @@ body{
     list-style:none;padding:0;margin:0
 }
 .actions li{
-    background:#f3f6fb;padding:10px;border-radius:8px;margin-bottom:8px;color:var(--muted)
+    list-style: none;
+    margin-bottom: 10px;
+}
+.actions li a{
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    background-color: black;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+.actions li a:hover{
+    background-color: rgb(43, 42, 42);
 }
 @media (max-width:980px){
   .dashboard-layout{flex-direction:column}
