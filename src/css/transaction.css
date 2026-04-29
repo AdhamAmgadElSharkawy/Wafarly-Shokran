@@ -26,7 +26,6 @@ body {
     margin: 0 auto;
     background: #ffffff;
     border-radius: 28px;
-    box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
     overflow: hidden;
 }
 
@@ -39,12 +38,8 @@ body {
 
 .logo-area h1 {
     font-size: 1.75rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #1f3b4c, #2a6f6f);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    letter-spacing: -0.3px;
+    font-weight: bold;
+    color: #1f3b4c;
 }
 
 .logo-area p {
@@ -125,13 +120,9 @@ body {
     font-family: inherit;
     cursor: pointer;
     outline: none;
-    transition: all 0.2s;
 }
 
-.filter-select:hover {
-    background: #fafdff;
-    border-color: #cbdae6;
-}
+
 
 .add-btn {
     background: #1f3b4c;
@@ -142,15 +133,10 @@ body {
     border-radius: 40px;
     font-size: 0.85rem;
     cursor: pointer;
-    transition: all 0.2s;
     font-family: inherit;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-.add-btn:hover {
-    background: #0f2e3c;
-    transform: scale(0.97);
-}
+
 
 /* Table Wrapper */
 .table-wrapper {
@@ -176,28 +162,7 @@ body {
     color: #3a5575;
     border-bottom: 1px solid #e9f0f5;
     font-size: 0.85rem;
-    letter-spacing: 0.3px;
 }
-
-.transactions-table td {
-    padding: 1rem 1.2rem;
-    border-bottom: 1px solid #f0f4fa;
-    color: #1e2f45;
-    font-weight: 500;
-}
-
-
-/* Category Badge */
-.category-badge {
-    background: #edf4fc;
-    padding: 0.25rem 0.8rem;
-    border-radius: 40px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    display: inline-block;
-    color: #2c5f8a;
-}
-
 
 /* Actions Column */
 .actions-header {
@@ -205,8 +170,43 @@ body {
     width: 100px;
 }
 
-.actions-cell {
-    text-align: center;
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 20px;
+    width: 400px;
+    max-width: 90%;
+}
+
+.close-btn {
+    float: right;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.modal-content input,
+.modal-content select {
+    padding: 0.6rem;
+    border-radius: 10px;
+    border: 1px solid #dfe8f2;
+    font-family: inherit;
 }
 
 
@@ -253,15 +253,9 @@ body {
 
 @media (max-width: 480px) {
 
-    .transactions-table th,
-    .transactions-table td {
+    .transactions-table th {
         padding: 0.75rem 0.8rem;
         font-size: 0.8rem;
-    }
-
-    .category-badge {
-        font-size: 0.7rem;
-        padding: 0.2rem 0.6rem;
     }
 
     .header {
