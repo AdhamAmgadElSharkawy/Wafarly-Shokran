@@ -1,11 +1,40 @@
-.basic_stats{
+.export_report{
+    text-align: right;
+    margin-bottom: 20px; 
+    margin-right: 20px;
+}
+.export_report button{
+    background-color: black; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    font-size: 16px;
+}
+.stats_group{
+    display: flex;
+}
+.stat{
     display: flex;
     flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin: 20px 10px;
+}
+
+.stat span{
+    padding: 5px 30px;
+}
+
+.stat_outcome{
+    font-size:20px;
+    font-weight: bold;
 }
 
 .chart-container {
     width: 60%;
-    margin: 40px auto;
+    margin: 20px;
     background: white;
     padding: 20px;
     border-radius: 12px;
