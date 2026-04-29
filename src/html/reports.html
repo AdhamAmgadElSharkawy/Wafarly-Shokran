@@ -7,23 +7,24 @@
     </head>
     <body>
         <h1>Reports</h1>
-        <div class="basic_stats">
-            <div class="total_income">
+        <div class="export_report"><button type="button">Export Report</button></div>
+        <div class="stats_group">
+            <div class="total_income stat">
                 <span class="stat_title">Total Icome</span>
                 <span class="stat_outcome">$45,000</span>
                 <span class="stat_period">Perioud Total</span>
             </div>
-            <div class="total_expenses">
+            <div class="total_expenses stat">
                 <span class="stat_title">Total Expenses</span>
                 <span class="stat_outcome">$29,300</span>
                 <span class="stat_period">Perioud Total</span>
             </div>
-            <div class="total_savings">
+            <div class="total_savings stat">
                 <span class="stat_title">Total Savings</span>
                 <span class="stat_outcome">$15,700</span>
                 <span class="stat_period">Perioud Total</span>
             </div>
-            <div class="avg_month_savings">
+            <div class="avg_month_savings stat">
                 <span class="stat_title">Avg. Monthly Savings</span>
                 <span class="stat_outcome">$1,570</span>
                 <span class="stat_period">Per month</span>
@@ -31,7 +32,13 @@
             
         </div>
         <div class="chart-container">
+            <h2>Income vs Expenses Trend</h2>
             <canvas id="incomeExpenseChart"></canvas>
+        </div>
+        
+        <div class="chart-container">
+            <h2>Category Spending Trends</h2>
+            <canvas id="categorySpendingChart"></canvas>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
