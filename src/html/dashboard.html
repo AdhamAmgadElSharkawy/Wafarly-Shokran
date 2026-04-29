@@ -2,11 +2,57 @@
 <html>
     <head>
         <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Budget Dashboard</title>
-        <h1>Dashboard</h1>
+        <link rel="stylesheet" href="../css/sideBar.css">
+        <link rel="stylesheet" href="../css/dashboard.css">
     </head>
     <body>
-        <main class="dashboard">
+        <div class="dashboard-layout">
+            <aside class="SideBar">
+                <div class="sidebarLogo">
+                    <h2>Wafarly Shokran</h2>
+                    <p>for personal finance</p>
+                </div>
+                <ul>
+                    <li class="sideBar-item active">
+                        <a href="dashboard.html">
+                            <span>dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sideBar-item">
+                        <a href="transaction.html">
+                            <span>transactions</span>
+                        </a>
+                    </li>
+                    <li class="sideBar-item">
+                        <a href="Add_tran.html">
+                            <span>Budget</span>
+                        </a>
+                    </li>
+                    <li class="sideBar-item">
+                        <a href="goals.html">
+                            <span>goals</span>
+                        </a>
+                    </li>
+                    <li class="sideBar-item">
+                        <a href="reports.html">
+                            <span>reports</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="sideBar-footer">
+                    <a href="login.html">
+                        <span>logout</span>
+                    </a>
+                </div>
+            </aside>
+            <div class="main-wrapper">
+                <header class="page-header">
+                    <h1>Dashboard</h1>
+                </header>
+                <main class="container">
+                <div class="dashboard">
 
             <section class="cards">
                 <div class="card">
@@ -33,27 +79,33 @@
             <section class="charts">
                 <div class="spendingByCategory">
                     <h3>Spending By Category</h3>
+                    <div class="chart-placeholder">Pie chart placeholder</div>
                 </div>
 
                 <div class="spendingVsBudget">
                     <h3>Spending VS Budget</h3>
+                    <div class="chart-placeholder">Bar chart placeholder</div>
                 </div>
             </section>
 
             <section class="activity">
                 <div class="recentActivity">
                     <h3>Recent Activity</h3>
+                    <div class="chart-placeholder" style="height:200px">Recent activity list placeholder</div>
                 </div>
 
                 <div class="actions">
-                    <h3>Actions</h3>
+                    <h3>Quick Actions</h3>
                     <ul>
-                        <li>Add Income</li>
-                        <li>Add Expense</li>
-                        <li>Create Goal</li>
+                        <li><a href="Add_tran.html">Add Expense</a></li>
+                        <li><a href="transaction.html">Add Income</a></li>
+                        <li><a href="goals.html">Create Goal</a></li>
                     </ul>
                 </div>
             </section>
-        </main>
+                </div>
+                </main>
+            </div>
+        </div>
     </body>
 </html>
