@@ -79,12 +79,11 @@ body {
 }
 
 .search-box:focus-within {
-    border-color: #2a9d8f;
     box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.15);
 }
 
 .search-icon {
-    color: #8ba0bc;
+    color: black;
     margin-right: 8px;
     font-size: 0.9rem;
 }
@@ -95,7 +94,6 @@ body {
     font-size: 0.9rem;
     width: 100%;
     outline: none;
-    font-family: inherit;
 }
 
 .search-input::placeholder {
@@ -117,7 +115,6 @@ body {
     font-size: 0.85rem;
     font-weight: 500;
     color: #1f3b4c;
-    font-family: inherit;
     cursor: pointer;
     outline: none;
 }
@@ -125,7 +122,7 @@ body {
 
 
 .add-btn {
-    background: #1f3b4c;
+    background: black;
     border: none;
     color: white;
     font-weight: 600;
@@ -133,7 +130,6 @@ body {
     border-radius: 40px;
     font-size: 0.85rem;
     cursor: pointer;
-    font-family: inherit;
 }
 
 
@@ -206,7 +202,38 @@ body {
     padding: 0.6rem;
     border-radius: 10px;
     border: 1px solid #dfe8f2;
-    font-family: inherit;
+}
+
+.type-selector {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.type-btn {
+    flex: 1;
+    padding: 0.7rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    opacity: 0.7;
+}
+
+.type-btn.income,
+.type-btn.expense {
+    background: gray;
+    color: white;
+}
+
+.type-btn.income:hover,
+.type-btn.expense:hover {
+    background-color: black;
+}
+
+
+.active-type {
+    opacity: 1;
 }
 
 

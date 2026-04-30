@@ -56,6 +56,12 @@ body {
     color: #0f172a;
 }
 
+.form-header span {
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+}
+
 /* Form Layout */
 .budget-form {
     display: flex;
