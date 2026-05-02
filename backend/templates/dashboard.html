@@ -1,0 +1,70 @@
+{%extends 'base.html'%}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{%static 'css/dashboard.css'%}">
+{% endblock extra_css %}
+{% block content %}
+
+<div class="dashboard-layout">
+    <div class="main-wrapper">
+        <header class="page-header">
+            <h1>Dashboard</h1>
+        </header>
+        <main class="container">
+            <div class="dashboard">
+                
+                <section class="cards">
+                    <div class="card">
+                        <h3>Monthly Income</h3>
+                        <p>4500$</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Savings Rate</h3>
+                        <p>34.5%</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Monthly Expenses</h3>
+                        <p>2950$</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Total Balance</h3>
+                        <p>12,400$</p>
+                    </div>
+                </section>
+                
+                <section class="charts">
+                    <div class="spendingByCategory">
+                        <h3>Spending By Category</h3>
+                        <div class="chart-placeholder">Pie chart placeholder</div>
+                    </div>
+                    
+                    <div class="spendingVsBudget">
+                        <h3>Spending VS Budget</h3>
+                        <div class="chart-placeholder">Bar chart placeholder</div>
+                    </div>
+                </section>
+                
+                <section class="activity">
+                    <div class="recentActivity">
+                        <h3>Recent Activity</h3>
+                        <div class="chart-placeholder" style="height:200px">Recent activity list placeholder</div>
+                    </div>
+                    
+                    <div class="actions">
+                        <h3>Quick Actions</h3>
+                        <ul>
+                            <li><a href="transaction.html">Add Expense</a></li>
+                            <li><a href="transaction.html">Add Income</a></li>
+                            <li><a href="goals.html">Create Goal</a></li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock content %}

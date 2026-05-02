@@ -1,0 +1,48 @@
+{%extends 'base.html'%}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{%static 'css/signup.css'%}">
+{% endblock extra_css %}
+
+{% block content %}
+<div>
+    <form class="wrapper">
+        <img class = "signupLogo" src="../images/wallet_20dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.svg" alt="logo">
+        <h1>Signup</h1>
+        <div class="inputBox">
+            <Label for="fname">First Name:</Label>
+            <input type="text" id ="fname" name="fname" placeholder="Adham" required>
+        </div>
+        
+        <div class="inputBox">
+            <Label for="lname">Last Name:</Label>
+            <input type="text" id ="lname" name="lname" placeholder="El-Sharkawy" required>
+        </div>
+        
+        <div class="inputBox">
+            <label for = "username">Username:</label>
+            <input type = "text" id="username" name="username" placeholder="Adham" required>
+        </div>
+        <div class="inputBox">
+            <label for="birthday">Birthday:</label>
+            <input type="date" id="birthday" name="birthday"  required>
+        </div>
+        <div class="inputBox">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name = "email" placeholder="Email" required>
+        </div>
+        <div class="inputBox">
+            <label for="password">Password:</label>
+            <input type = "password" id="password" name = "password" placeholder="password" required>
+        </div>
+        <div class="inputBox">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type = "password" id="confirmPassword" name = "confirmPassword" placeholder="password" required>
+        </div>
+        
+        <input type = "submit" id="submit" name = "submit" value="signup">
+        <a href="login.html">Have Account Already</a>
+    </form>
+</div>
+{% endblock content %}
