@@ -1,10 +1,6 @@
 body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.header{
-    margin-left:400px;
-    margin-top:0;
-}
 .export_report{
     text-align: right;
     margin-bottom: 20px; 
@@ -21,7 +17,6 @@ body{
 }
 .stats_group{
     display: flex;
-    margin-left:400px;
 }
 .stat{
     display: flex;
@@ -41,9 +36,8 @@ body{
 }
 
 .chart-container {
-    width: 60%;
-    margin: 20px;
-    margin-left: 400px;
+    width: 100%;
+    margin-bottom: 20px;
     background: white;
     padding: 20px;
     border-radius: 12px;
