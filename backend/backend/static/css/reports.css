@@ -17,8 +17,12 @@ body{
 }
 .stats_group{
     display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
 }
 .stat{
+    flex: 1;
     display: flex;
     flex-direction: column;
     border-radius: 10px;
