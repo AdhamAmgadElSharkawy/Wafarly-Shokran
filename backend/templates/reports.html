@@ -6,6 +6,13 @@
 {% endblock extra_css %}
 
 {% block extra_js %}
+    {{ ti|json_script:"income-data" }}
+    {{ te|json_script:"expense-data" }}
+    {{ monthlyData|json_script:"monthly-chart-data" }}
+    {{ transPerCategory|json_script:"transactionsPerCategory" }}
+
+    <script src="{% static 'js/charts.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{% static 'js/reports.js' %}"></script>
 {% endblock extra_js %}
@@ -13,7 +20,7 @@
 {% block content %}
     <div class="header">
         <h1>Reports</h1>
-        <div class="export_report"><button type="button">Export Report</button></div>
+        <div class="export_report"><button type="button" onclick="exportChartsToExcel()">Export Report</button></div>
     </div>
     <div class="stats_group">
         <div class="total_income stat">
@@ -33,7 +40,7 @@
         </div>
         <div class="avg_month_savings stat">
             <span class="stat_title">Avg. Monthly Savings</span>
-            <span class="stat_outcome">$1,570</span>
+            <span class="stat_outcome">{{monthlyAvg}}</span>
             <span class="stat_period">Per month</span>
         </div>
         
