@@ -1,4 +1,4 @@
-* {
+*{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -12,8 +12,7 @@ main{
     padding: 40px;
     overflow-y:auto ;
 }
-
-.SideBar {
+.SideBar{
     width: 300px;
     height: 100vh;
     position: sticky;
@@ -26,26 +25,24 @@ main{
     border-right: 1px solid #eef0f4;   
 }
 
-.sidebarLogo {
+.sidebarLogo{
     margin-bottom: 40px;
 }
-
-.sidebarLogo p {
+.sidebarLogo p{
     font-size: 14px;
 }
 
-.SideBar ul {
+.SideBar ul{
     list-style: none;
     flex-grow: 1;
 
     padding: 0;
 }
 
-.sideBar-item {
+.sideBar-item{
     margin-bottom: 15px;
 }
-
-.sideBar-item a {
+.sideBar-item a{
     text-decoration: none;
     padding: 10px;
     color: black;
@@ -55,21 +52,17 @@ main{
     border-radius: 8px;
     transition: 0.3s;
 }
-
-.sideBar-item.active a {
+.sideBar-item.active a{
     background-color: lightgray;
 }
-
-.sideBar-item a:hover {
+.sideBar-item a:hover{
     background-color: lightgray;
 }
-
-.sideBar-footer {
+.sideBar-footer{
     border-top: 1px solid lightgray;
     padding-top: 20px;
 }
-
-.sideBar-footer a {
+.sideBar-footer a{
     text-decoration: none;
     color: black;
     display: block;
@@ -79,7 +72,6 @@ main{
     border-radius: 8px;
     transition: 0.3s;
 }
-
-.sideBar-footer a:hover {
+.sideBar-footer a:hover{
     background-color: lightgray;
 }
