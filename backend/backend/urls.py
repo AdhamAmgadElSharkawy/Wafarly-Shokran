@@ -23,5 +23,5 @@ urlpatterns = [
     path('', include('accounts.urls')),
     # path('goals/', include('goals.urls')),
     # path('transactions/', include('transactions.urls')),
-    # path('reports/', include('reports.urls')),
+    path('reports/', include('reports.urls')),
 ]
