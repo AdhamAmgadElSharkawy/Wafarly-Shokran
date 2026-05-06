@@ -66,6 +66,28 @@ const incomeExpenseChart = new Chart(ctx1, {
 } );
 
 
+function IncomeExpenseChartSheet() {
+    const labels = incomeExpenseChart.data.labels;
+    const datasets = incomeExpenseChart.data.datasets;
+    
+    const excelData = [];
+    
+    const headers = [''];
+    datasets.forEach(ds => headers.push(ds.label || 'Amount'));
+    excelData.push( headers ); 
+
+    for (let i = 0; i < labels.length; i++) {
+        const row = [labels[i]];
+        datasets.forEach(ds => {
+            row.push(ds.data[i]);
+        });
+        excelData.push(row);
+    }
+
+    return XLSX.utils.aoa_to_sheet(excelData);
+}
+
+
 const rawData = JSON.parse( document.getElementById( 'transactionsPerCategory' ).textContent );
 const months = [...new Set(rawData.map(item => item.month))];
 const categories = [...new Set(rawData.map(item => item.category__name))];
@@ -118,3 +140,35 @@ const categorySpendingChart = new Chart( ctx2, {
             }
     }
 } );
+
+
+function categoryChartSheet() {
+    const labels = categorySpendingChart.data.labels;
+    const datasets = categorySpendingChart.data.datasets;
+    
+    const excelData = [];
+    
+    const headers = ['Category'];
+    datasets.forEach(ds => headers.push(ds.label || 'Amount'));
+    excelData.push( headers ); 
+
+    for (let i = 0; i < labels.length; i++) {
+        const row = [labels[i]];
+        datasets.forEach(ds => {
+            row.push(ds.data[i]);
+        });
+        excelData.push(row);
+    }
+
+    return XLSX.utils.aoa_to_sheet(excelData);
+}
+
+function exportChartsToExcel() {
+    const IncomeExpenseSheet = IncomeExpenseChartSheet();
+    const CategorySpendingSheet = categoryChartSheet();
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, IncomeExpenseSheet, "Income vs Expenses Trend");
+    XLSX.utils.book_append_sheet(workbook, CategorySpendingSheet, "Category Spending");
+    XLSX.writeFile(workbook, "Charts_Data.xlsx");
+}
