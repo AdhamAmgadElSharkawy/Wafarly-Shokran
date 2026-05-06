@@ -1,12 +1,13 @@
 from django.shortcuts import render
-from transactions.models import Transaction, Category
+from django.contrib.auth.decorators import login_required
+from transactions.models import Transaction
 from django.db.models.functions import TruncMonth
 from django.db.models import Sum,Q
 
 # Create your views here.
+@login_required(login_url='login')
 def reports(request):
-    transactionsData=Transaction.objects.all()
-    categories=Category.objects.all().values('name')
+    transactionsData=Transaction.objects.filter(user=request.user)
 
     total_income = 0
     total_expense = 0
@@ -16,14 +17,14 @@ def reports(request):
     for e in transactionsData.filter(type='e'):
         total_expense+=e.amount
     
-    monthlyData = Transaction.objects.annotate(
+    monthlyData = Transaction.objects.filter(user=request.user).annotate(
         month=TruncMonth('date_time')
     ).values('month').annotate(
         total_income=Sum('amount', filter=Q(type='i')),
         total_expense=Sum('amount', filter=Q(type='e')),
     ).order_by('month')
 
-    transactionsPerCategory= Transaction.objects.filter(type='e').annotate(
+    transactionsPerCategory= Transaction.objects.filter(type='e',user=request.user).annotate(
     month=TruncMonth('date_time')
 ).values('category__name', 'month').annotate(
     total_amount=Sum('amount')
