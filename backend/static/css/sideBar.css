@@ -3,7 +3,6 @@
     margin: 0;
     box-sizing: border-box;
 }
-<<<<<<< Updated upstream
 body{
     display: flex;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -13,11 +12,8 @@ main{
     padding: 40px;
     overflow-y:auto ;
 }
-.SideBar{
-=======
 
 .SideBar {
->>>>>>> Stashed changes
     width: 300px;
     height: 100vh;
     position: sticky;
