@@ -1,34 +1,33 @@
-{%extends 'base.html'%}
 {% load static %}
 
-{% block extra_css %}
-    <link rel="stylesheet" href="{%static 'css/login.css'%}">
-{% endblock extra_css %}
-
-{% block content %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>login</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{%static 'css/login.css'%}">
+    </head>
     <div>
-        <form class="wrapper">
-            <img class = "loginLogo" src="../images/wallet_20dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.svg" alt="logo">
+        <form method="post" class="wrapper">
+            {%csrf_token%}
+            <img class = "loginLogo" src="{%static 'images/wallet_20dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.svg'%}" alt="logo">
             <h1>Login</h1>
+            {% if error %}
+                <p style="color: red; text-align: center; font-weight: bold; margin-bottom: 15px;">{{ error }}</p>
+            {% endif %}
             <div class="inputBox">
                 <input type="email" id="email" name="email" placeholder="Email" required>
-                <img src="../images/person_20dp_999999_FILL0_wght400_GRAD0_opsz20.svg" alt="">
+                <img src="{%static 'images/person_20dp_999999_FILL0_wght400_GRAD0_opsz20.svg'%}" alt="">
             </div>
             
             <div class="inputBox">
                 <input type = "password" id="password" name = "password" placeholder="password" required>
-                <img src="../images/lock_20dp_999999_FILL0_wght400_GRAD0_opsz20.svg" alt="">
-            </div>
-            
-            <div class="forgetPassword">
-                <label class="checkBoxLabel"><input type="checkbox">Remember me</label>
-                <a href="forget_password.html" class="Forget">Forget Password?</a>
+                <img src="{%static 'images/lock_20dp_999999_FILL0_wght400_GRAD0_opsz20.svg'%}" alt="">
             </div>
             <input type = "submit" id="submit" name = "submit" value="Log in" required>
             
             <div class="registerLink">
-                <p>Don't have an account? <a href="signup.html">Register</a></p>
+                <p>Don't have an account? <a href="{% url 'signup' %}">Register</a></p>
             </div>
         </form>
     </div>
-{% endblock content %}

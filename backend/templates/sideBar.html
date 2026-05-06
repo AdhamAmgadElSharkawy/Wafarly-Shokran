@@ -31,8 +31,11 @@
         </li>
     </ul>
     <div class="sideBar-footer">
-        <a href="login.html">
-            <span>logout</span>
+        <div class="userInfo" style="margin-bottom: 15px;">
+            <p>{{user.username}}</p>
+            <p>{{user.email}}</p>
+        </div>
+        <a href="{% url 'logout' %}">Logout</a>
         </a>
     </div>
 </aside>

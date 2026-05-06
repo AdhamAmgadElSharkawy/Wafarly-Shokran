@@ -1,23 +1,29 @@
-{%extends 'base.html'%}
 {% load static %}
-
-{% block extra_css %}
-    <link rel="stylesheet" href="{%static 'css/signup.css'%}">
-{% endblock extra_css %}
-
-{% block content %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Signup</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{%static 'css/signup.css'%}">
+    </head>
 <div>
-    <form class="wrapper">
-        <img class = "signupLogo" src="../images/wallet_20dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.svg" alt="logo">
+    <form method="post" class="wrapper">
+        {%csrf_token%}
+        <img class = "signupLogo" src="{%static 'images/wallet_20dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.svg' %}" alt="logo">
         <h1>Signup</h1>
+
+        {%if error %}
+            <p style="color: red; text-align: center; font-weight: bold;">{{ error }}</p>
+        {%endif%}
+
         <div class="inputBox">
             <Label for="fname">First Name:</Label>
-            <input type="text" id ="fname" name="fname" placeholder="Adham" required>
+            <input type="text" id ="fname" name="first_name" placeholder="Adham" required>
         </div>
         
         <div class="inputBox">
             <Label for="lname">Last Name:</Label>
-            <input type="text" id ="lname" name="lname" placeholder="El-Sharkawy" required>
+            <input type="text" id ="lname" name="last_name" placeholder="El-Sharkawy" required>
         </div>
         
         <div class="inputBox">
@@ -26,7 +32,7 @@
         </div>
         <div class="inputBox">
             <label for="birthday">Birthday:</label>
-            <input type="date" id="birthday" name="birthday"  required>
+            <input type="date" id="birthday" name="birth_date"  required>
         </div>
         <div class="inputBox">
             <label for="email">Email:</label>
@@ -38,11 +44,10 @@
         </div>
         <div class="inputBox">
             <label for="confirmPassword">Confirm Password:</label>
-            <input type = "password" id="confirmPassword" name = "confirmPassword" placeholder="password" required>
+            <input type = "password" id="confirmPassword" name = "confirm_password" placeholder="password" required>
         </div>
         
         <input type = "submit" id="submit" name = "submit" value="signup">
-        <a href="login.html">Have Account Already</a>
+        <a href="{% url 'login' %}">Have Account Already</a>
     </form>
 </div>
-{% endblock content %}
