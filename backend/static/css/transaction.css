@@ -42,6 +42,7 @@ body {
     color: #1f3b4c;
 }
 
+
 .logo-area p {
     font-size: 0.85rem;
     color: #5b6e8c;
@@ -53,6 +54,8 @@ body {
 .main-content {
     padding: 2rem;
 }
+
+
 
 /* Filter Bar */
 .filter-bar {
@@ -76,10 +79,6 @@ body {
     border-radius: 48px;
     padding: 0.5rem 1rem;
     transition: all 0.2s;
-}
-
-.search-box:focus-within {
-    box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.15);
 }
 
 .search-icon {
@@ -119,8 +118,6 @@ body {
     outline: none;
 }
 
-
-
 .add-btn {
     background: black;
     border: none;
@@ -131,8 +128,6 @@ body {
     font-size: 0.85rem;
     cursor: pointer;
 }
-
-
 
 /* Table Wrapper */
 .table-wrapper {
@@ -150,14 +145,49 @@ body {
     min-width: 800px;
 }
 
+
 .transactions-table th {
-    text-align: left;
-    padding: 1rem 1.2rem;
     background: #fafdff;
     font-weight: 600;
     color: #3a5575;
-    border-bottom: 1px solid #e9f0f5;
     font-size: 0.85rem;
+}
+
+.transactions-table th,
+.transactions-table td {
+    text-align: center;
+    padding: 1rem 1.2rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #e9f0f5;
+}
+
+.transactions-table td:last-child {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    border-bottom: none;
+}
+
+.transactions-table tr td:last-child {
+    border-bottom: 1px solid #e9f0f5;
+}
+
+.actions-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-action {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    background-color: gray;
+    color: white;
 }
 
 /* Actions Column */
