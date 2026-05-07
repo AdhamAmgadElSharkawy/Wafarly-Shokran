@@ -88,6 +88,51 @@ body{
 .actions li a:hover{
     background-color: rgb(43, 42, 42);
 }
+.activity-list{
+    height: 250px;
+    overflow-y: auto;
+    padding-top: 15px;
+
+}
+.activity-list::-webkit-scrollbar {
+    width: 6px;
+}
+.activity-list::-webkit-scrollbar-thumb {
+  background-color: rgba(15,23,36,0.1);
+  border-radius: 10px;
+}
+.activity-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid lightgrey;
+}
+.activity-item:last-child{
+    border-bottom: none;
+}
+.activity-details strong{
+    display: block;
+    font-size: 15px;
+}
+.activity-details span{
+    font-size: 12px;
+}
+.activity-amount{
+    font-weight: bold;
+    font-size: 15px;
+}
+.amount-income{
+    color: var(--success);
+}
+.amount-expenses{
+    color: var(--danger);
+}
+.activity-empty{
+    text-align: center;
+    color: var(--muted);
+    margin-top: 20px;
+}
 @media (max-width:980px){
   .dashboard-layout{flex-direction:column}
   .dashboard-layout .SideBar{width:100%;height:auto}

@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum, Avg
+from transactions.models import Transaction
 from .models import User
 # Create your views here.
 def signup(request):
@@ -60,4 +62,31 @@ def logout_view(request):
 
 @login_required(login_url='login')
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    user_transactions = Transaction.objects.filter(user=request.user)
+    avg_income = user_transactions.filter(type='i').aggregate(Avg('amount'))['amount__avg']or 0
+    avg_expenses = user_transactions.filter(type='e').aggregate(Avg('amount'))['amount__avg']or 0
+    total_income = user_transactions.filter(type='i').aggregate(Sum('amount'))['amount__sum']or 0
+    total_expenses = user_transactions.filter(type='e').aggregate(Sum('amount'))['amount__sum']or 0
+    total_balance = total_income-total_expenses
+
+    if total_income>0:
+        saving_rate = (total_balance/total_income)*100
+    else:
+        saving_rate = 0
+    
+    spending_category = user_transactions.filter(type='e').values('category__name').annotate(total=Sum('amount'))
+    spending_category_name = [item['category__name'] for item in spending_category]
+    spending_category_total = [float(item['total']) for item in spending_category]
+    recent_transactions = user_transactions.order_by('-date_time')[:5]
+    context = {
+        'avg_income':round(avg_income,2),
+        'avg_expenses':round(avg_expenses,2),
+        'total_balance':float(total_balance),
+        'saving_rate':round(saving_rate,2),
+        'spending_category_name':spending_category_name,
+        'spending_category_total':spending_category_total,
+        'total_income':float(total_income),
+        'total_expenses':float(total_expenses),
+        'recent_transactions':recent_transactions,
+    }
+    return render(request, 'dashboard.html',context)

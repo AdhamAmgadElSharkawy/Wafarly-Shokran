@@ -16,50 +16,68 @@
                 
                 <section class="cards">
                     <div class="card">
-                        <h3>Monthly Income</h3>
-                        <p>4500$</p>
+                        <h3>Average Income</h3>
+                        <p>{{avg_income}}</p>
                     </div>
                     
                     <div class="card">
                         <h3>Savings Rate</h3>
-                        <p>34.5%</p>
+                        <p>{{saving_rate}}</p>
                     </div>
                     
                     <div class="card">
-                        <h3>Monthly Expenses</h3>
-                        <p>2950$</p>
+                        <h3>Average Expenses</h3>
+                        <p>{{avg_expenses}}</p>
                     </div>
                     
                     <div class="card">
                         <h3>Total Balance</h3>
-                        <p>12,400$</p>
+                        <p>{{total_balance}}</p>
                     </div>
                 </section>
                 
                 <section class="charts">
                     <div class="spendingByCategory">
                         <h3>Spending By Category</h3>
-                        <div class="chart-placeholder">Pie chart placeholder</div>
+                        <div class="chart-placeholder" style="position: relative; height:300px; width:100%">
+                            <canvas id="piechart"></canvas>
+                        </div>
                     </div>
                     
                     <div class="spendingVsBudget">
                         <h3>Spending VS Budget</h3>
-                        <div class="chart-placeholder">Bar chart placeholder</div>
+                        <div class="chart-placeholder" style="position: relative; height:300px; width:100%">
+                            <canvas id="barChart"></canvas>
+                        </div>
                     </div>
                 </section>
                 
                 <section class="activity">
                     <div class="recentActivity">
                         <h3>Recent Activity</h3>
-                        <div class="chart-placeholder" style="height:200px">Recent activity list placeholder</div>
+                        <div class="activity-list">
+                            {%for transaction in recent_transactions%}
+                                <div class="activity-item">
+                                    <div class="activity-details">
+                                        <strong>{{transaction.category.name}}</strong>
+                                        <span>{{transaction.date_time|date:"M d, Y"}}</span>
+                                    </div>
+                                    <div class="activity-amount {% if transaction.type == 'i'%}amount-income{%else%}amount-expenses{%endif%}">
+                                        {% if transaction.type == 'i'%}+{%else%}-{%endif%}{{transaction.amount}}
+                                    </div>
+                                </div>
+                            {%empty%}
+                                <p class="activity-empty">recent activity will appear here</p>
+                            {%endfor%}
+                        </div>
                     </div>
                     
                     <div class="actions">
                         <h3>Quick Actions</h3>
                         <ul>
-                            <li><a href="transaction.html">Add Expense</a></li>
-                            <li><a href="transaction.html">Add Income</a></li>
-                            <li><a href="goals.html">Create Goal</a></li>
+                            <li><a href="{% url 'transactions' %}">Add Expense</a></li>
+                            <li><a href="{% url 'transactions' %}">Add Income</a></li>
+                            <li><a href="{% url 'goal_list' %}">Create Goal</a></li>
                         </ul>
                     </div>
                 </section>
@@ -67,4 +85,10 @@
         </main>
     </div>
 </div>
+{{spending_category_name|json_script:"spending_category_name_data"}}
+{{spending_category_total|json_script:"spending_category_total_data"}}
+{{total_income|json_script:"total_income_data"}}
+{{total_expenses|json_script:"total_expenses_data"}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock content %}
