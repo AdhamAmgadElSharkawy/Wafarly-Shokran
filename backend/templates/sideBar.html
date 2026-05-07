@@ -14,7 +14,7 @@
                 <span>transactions</span>
             </a>
         </li>
-        <li class="sideBar-item {% if request.resolver_match.url_name == 'budget' %}active{%endif%}">
+        <li class="sideBar-item {% if request.resolver_match.url_name == 'budget_list' %}active{%endif%}">
             <a href="{% url 'budget_list' %}">
                 <span>Budget</span>
             </a>
