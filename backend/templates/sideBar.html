@@ -19,9 +19,8 @@
                 <span>Budget</span>
             </a>
         </li>
-        <li class="sideBar-item {% if request.resolver_match.url_name == 'goals' %}active{%endif%}">
-            <a href="goals.html">
-                <span>goals</span>
+        <li class="sideBar-item {% if request.resolver_match.url_name == 'goal_list' %}active{%endif%}">
+            <a href="{% url 'goal_list' %}">Goals</a>
             </a>
         </li>
         <li class="sideBar-item {% if request.resolver_match.url_name == 'reports' %}active{%endif%}">
