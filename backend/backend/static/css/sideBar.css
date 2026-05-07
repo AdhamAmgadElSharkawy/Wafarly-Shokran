@@ -13,6 +13,7 @@ main{
     overflow-y:auto ;
 }
 .SideBar{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     width: 300px;
     height: 100vh;
     position: sticky;

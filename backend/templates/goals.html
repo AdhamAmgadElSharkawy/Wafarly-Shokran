@@ -1,109 +1,163 @@
-{%extends 'base.html'%}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{%static 'css/goals.css'%}">
+    <link rel="stylesheet" href="{% static 'css/goals.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
     <h1>Goals</h1>
-    <div class="create_goal_button"><button type="button" id="open_modal_btn">  + Create Goal</button></div>
+    <div class="create_goal_button">
+        <button type="button" id="open_modal_btn">+ Create Goal</button>
+    </div>
+
     <ul class="goals_list">
+        {% for goal in goals %}
         <li class="goals_list_item">
-            <h2 class="goal_title">Goal 1</h2>
+            <h2 class="goal_title">{{ goal.title }}</h2>
             <ul class="goals_sublist">
-                <li class="goals_sublist_item progress">
-                    <div class="progress_info">
-                        <span>Progress</span>
-                        <span>25%</span> 
-                    </div>
-                    <div class="progress_bar_bg">
-                        <div class="progress_bar_fill" style="width: 25%;"></div>
-                    </div>
-                </li>
-                <li class="goals_sublist_item">Current 100$</li>
-                <li class="goals_sublist_item">Target 400$</li>
-                <li class="goals_sublist_item">Remaining 300$</li>
-                <li class="goals_sublist_item">Days left 100</li>
+                <li class="goals_sublist_item">Target ${{ goal.target_amount }}</li>
+                <li class="goals_sublist_item">Start Date {{ goal.start_date }}</li>
+                <li class="goals_sublist_item">Deadline {{ goal.deadline|date:"Y-m-d" }}</li>
             </ul>
             <div class="buttons">
-                <button class="add_fund_button" type="button">Add Funds</button>
-                <button class="edit_button" type="button">Edit</button>
-                <button class="delete_button" type="button">Delete</button>
-                </div>
-            </li>
-            
-            <li class="goals_list_item">
-                <h2 class="goal_title">Goal 2</h2>
-                <ul class="goals_sublist">
-                    <li class="goals_sublist_item progress">
-                        <div class="progress_info">
-                            <span>Progress</span>
-                            <span>75%</span> 
-                        </div>
-                        <div class="progress_bar_bg">
-                            <div class="progress_bar_fill" style="width: 75%;"></div>
-                        </div>
-                    </li>
-                    <li class="goals_sublist_item">Current 300$</li>
-                    <li class="goals_sublist_item">Target 400$</li>
-                    <li class="goals_sublist_item">Remaining 100$</li>
-                    <li class="goals_sublist_item">Days left 10</li>
-                </ul>
-                <div class="buttons">
-                    <button class="add_fund_button" type="button">Add Funds</button>
-                    <button class="edit_button" type="button">Edit</button>
-                    <button class="delete_button" type="button">Delete</button>
-                </div>
-            </li>
-            
-            <li class="goals_list_item">
-                <h2 class="goal_title">Goal 3</h2>
-                
-                <ul class="goals_sublist">
-                    <li class="goals_sublist_item progress">
-                        <div class="progress_info">
-                            <span>Progress</span>
-                            <span>50%</span> 
-                        </div>
-                        <div class="progress_bar_bg">
-                            <div class="progress_bar_fill" style="width: 50%;"></div>
-                        </div>
-                    </li>
-                    <li class="goals_sublist_item">Current 200$</li>
-                    <li class="goals_sublist_item">Target 400$</li>
-                    <li class="goals_sublist_item">Remaining 200$</li>
-                    <li class="goals_sublist_item">Days left 2</li>
-                </ul>
-                <div class="buttons">
-                    <button class="add_fund_button" type="button">Add Funds</button>
-                    <button class="edit_button" type="button">Edit</button>
-                    <button class="delete_button" type="button">Delete</button>
-                </div>
-            </li>
-        </ul>
-        
-        <div class="modal" id="goal_modal">
-            <div class="content">
-                <span class="close-btn" id="close_modal_btn">&times;</span>
-                <h2>Create New Goal</h2>
-                <form id="create_goal_form">
-                    <div class="inputs">
-                        <label for="goal_title">Goal Title</label>
-                        <input type="text" id="goal_title">
-                        <label for="goal_target">Target Amount ($)</label>
-                        <input type="number" id="goal_target">
-                        <label for="goal_start_date">Start Date</label>
-                        <input type="date" id="goal_category">
-                        <label for="goal_deadline">Deadline</label>
-                        <input type="date" id="goal_category">
-                        <button type="submit" id="submit_btn" class="submit_btn">Create Goal</button>
-                        <button type="button" id="cancel_btn" class="cancel_btn">Cancel</button>
-                    </div>
+                <button class="add_fund_button" type="button"
+                    onclick="openAddFundsModal('{{ goal.pk }}')">Add Funds</button>
+
+                <button class="edit_button" type="button"
+                    onclick="openEditModal(
+                        '{{ goal.pk }}',
+                        '{{ goal.title }}',
+                        '{{ goal.target_amount }}',
+                        '{{ goal.start_date|date:'Y-m-d' }}',
+                        '{{ goal.deadline|date:'Y-m-d' }}'
+                    )">Edit</button>
+
+                <form method="POST" action="{% url 'goal_delete' goal.pk %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button class="delete_button" type="submit">Delete</button>
                 </form>
             </div>
+        </li>
+        {% empty %}
+            <p>No goals yet. Create your first one!</p>
+        {% endfor %}
+    </ul>
+
+    <!-- Create Modal -->
+    <div class="modal" id="goal_modal">
+        <div class="content">
+            <span class="close-btn" id="close_modal_btn">&times;</span>
+            <h2>Create New Goal</h2>
+            <form id="create_goal_form" method="POST" action="{% url 'goal_create' %}">
+                {% csrf_token %}
+                <div class="inputs">
+                    <label for="goal_title">Goal Title</label>
+                    <input type="text" id="goal_title" name="title" required>
+
+                    <label for="goal_target">Target Amount ($)</label>
+                    <input type="number" id="goal_target" name="target_amount" min="0" required>
+
+                    <label for="goal_start_date">Start Date</label>
+                    <input type="date" id="goal_start_date" name="start_date" required>
+
+                    <label for="goal_deadline">Deadline</label>
+                    <input type="date" id="goal_deadline" name="deadline" required>
+
+                    <button type="submit" id="submit_btn" class="submit_btn">Create Goal</button>
+                    <button type="button" id="cancel_btn" class="cancel_btn">Cancel</button>
+                </div>
+            </form>
         </div>
-    {% block extra_js %}
-        <script src="{% static 'js/reports.js' %}"></script>
-    {% endblock extra_js %}
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal" id="edit_modal">
+        <div class="content">
+            <span class="close-btn" id="close_edit_modal_btn">&times;</span>
+            <h2>Edit Goal</h2>
+            <form id="edit_goal_form" method="POST">
+                {% csrf_token %}
+                <div class="inputs">
+                    <label for="edit_title">Goal Title</label>
+                    <input type="text" id="edit_title" name="title" required>
+
+                    <label for="edit_target">Target Amount ($)</label>
+                    <input type="number" id="edit_target" name="target_amount" min="0" required>
+
+                    <label for="edit_start_date">Start Date</label>
+                    <input type="date" id="edit_start_date" name="start_date" required>
+
+                    <label for="edit_deadline">Deadline</label>
+                    <input type="date" id="edit_deadline" name="deadline" required>
+
+                    <button type="submit" class="submit_btn">Save Changes</button>
+                    <button type="button" id="cancel_edit_btn" class="cancel_btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Funds Modal -->
+    <div class="modal" id="add_funds_modal">
+        <div class="content">
+            <span class="close-btn" id="close_funds_modal_btn">&times;</span>
+            <h2>Add Funds</h2>
+            <form id="add_funds_form" method="POST">
+                {% csrf_token %}
+                <div class="inputs">
+                    <label for="fund_amount">Amount to Add ($)</label>
+                    <input type="number" id="fund_amount" name="amount" min="0" required>
+
+                    <button type="submit" class="submit_btn">Add Funds</button>
+                    <button type="button" id="cancel_funds_btn" class="cancel_btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 {% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/create_goal.js' %}"></script>
+<script>
+    // Create modal
+    document.getElementById('open_modal_btn').addEventListener('click', () => {
+        document.getElementById('goal_modal').style.display = 'flex';
+    });
+    document.getElementById('close_modal_btn').addEventListener('click', () => {
+        document.getElementById('goal_modal').style.display = 'none';
+    });
+    document.getElementById('cancel_btn').addEventListener('click', () => {
+        document.getElementById('goal_modal').style.display = 'none';
+    });
+
+    // Edit modal
+    function openEditModal(pk, title, target, startDate, deadline) {
+        document.getElementById('edit_goal_form').action = `/goals/edit/${pk}/`;
+        document.getElementById('edit_title').value = title;
+        document.getElementById('edit_target').value = target;
+        document.getElementById('edit_start_date').value = startDate;
+        document.getElementById('edit_deadline').value = deadline;
+        document.getElementById('edit_modal').style.display = 'flex';
+    }
+    document.getElementById('close_edit_modal_btn').addEventListener('click', () => {
+        document.getElementById('edit_modal').style.display = 'none';
+    });
+    document.getElementById('cancel_edit_btn').addEventListener('click', () => {
+        document.getElementById('edit_modal').style.display = 'none';
+    });
+
+    // Add Funds modal
+    function openAddFundsModal(pk) {
+        document.getElementById('add_funds_form').action = `/goals/add_funds/${pk}/`;
+        document.getElementById('add_funds_modal').style.display = 'flex';
+    }
+    document.getElementById('close_funds_modal_btn').addEventListener('click', () => {
+        document.getElementById('add_funds_modal').style.display = 'none';
+    });
+    document.getElementById('cancel_funds_btn').addEventListener('click', () => {
+        document.getElementById('add_funds_modal').style.display = 'none';
+    });
+</script>
+{% endblock extra_js %}
