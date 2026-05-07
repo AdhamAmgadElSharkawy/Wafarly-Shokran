@@ -10,48 +10,43 @@ const categorySelect = document.getElementById("categorySelect");
 
 let editId = null;
 
+function updateCategoryOptions(type) {
+    const options = categorySelect.querySelectorAll('option');
+    let firstVisibleSet = false;
+
+    options.forEach(option => {
+        const optionType = option.getAttribute('data-type');
+
+        if (!optionType) return;
+
+        if (optionType === type) {
+            option.style.display = 'block';
+            if (!firstVisibleSet) {
+                categorySelect.value = option.value;
+                firstVisibleSet = true;
+            }
+        } else {
+            option.style.display = 'none';
+        }
+    });
+}
+
+
 // Open modal
 openBtn.addEventListener("click", () => {
     editId = null;
-    form.reset();// added
+    form.reset();
     modal.style.display = "flex";
-    loadCategories("income");
+
+    incomeBtn.classList.add("active-type");
+    expenseBtn.classList.remove("active-type");
+    updateCategoryOptions('i');
 });
 
 // Close modal
 closeBtn.addEventListener("click", () => {
     modal.style.display = "none";
 });
-
-// Categories
-const incomeCategories = ["Salary", "Bonus", "Investment"];
-const expenseCategories = ["Food", "Transport", "Shopping", "Housing"];
-
-
-
-function loadCategories(type) {
-    categorySelect.innerHTML = "";
-
-    let list = type === "income" ? incomeCategories : expenseCategories;
-
-    list.forEach(cat => {
-        let option = document.createElement("option");
-        option.textContent = cat;
-        categorySelect.appendChild(option);
-    });
-
-    incomeBtn.classList.remove("active-type");
-    expenseBtn.classList.remove("active-type");
-
-    if (type === "income") {
-        incomeBtn.classList.add("active-type");
-    } else {
-        expenseBtn.classList.add("active-type");
-    }
-}
-
-incomeBtn.onclick = () => loadCategories("income");
-expenseBtn.onclick = () => loadCategories("expense");
 
 
 // CSRF
@@ -65,7 +60,7 @@ form.addEventListener("submit", function (e) {
 
     const description = document.getElementById("descInput").value;
     const amount = document.getElementById("amountInput").value;
-    const category = categorySelect.value;
+    const category_id = categorySelect.value;
     const type = incomeBtn.classList.contains("active-type") ? "i" : "e";
 
     let url = "/transactions/add/";
@@ -79,7 +74,7 @@ form.addEventListener("submit", function (e) {
             "Content-Type": "application/json",
             "X-CSRFToken": getCSRFToken()
         },
-        body: JSON.stringify({ description, amount, category, type })
+        body: JSON.stringify({ description, amount, category_id, type })
     })
         .then(res => res.json())
         .then(() => location.reload());
@@ -109,18 +104,39 @@ document.addEventListener("click", function (e) {
         fetch(`/transactions/edit/${id}/`)
             .then(res => res.json())
             .then(data => {
-                modal.style.display = "flex"; //block
+                modal.style.display = "flex";
 
                 document.getElementById("descInput").value = data.description;
                 document.getElementById("amountInput").value = data.amount;
 
-                loadCategories(data.type === "i" ? "income" : "expense");
-                categorySelect.value = data.category;
+                if (data.type === "i") {
+                    incomeBtn.classList.add("active-type");
+                    expenseBtn.classList.remove("active-type");
+                    updateCategoryOptions('i');
+                } else {
+                    expenseBtn.classList.add("active-type");
+                    incomeBtn.classList.remove("active-type");
+                    updateCategoryOptions('e');
+                }
+                categorySelect.value = data.category_id;
 
                 editId = id;
             });
     }
 });
+
+
+incomeBtn.onclick = () => {
+    incomeBtn.classList.add("active-type");
+    expenseBtn.classList.remove("active-type");
+    updateCategoryOptions('i');
+};
+expenseBtn.onclick = () => {
+    expenseBtn.classList.add("active-type");
+    incomeBtn.classList.remove("active-type");
+    updateCategoryOptions('e');
+};
+
 
 //for filter
 const searchInput = document.getElementById("searchInput");
