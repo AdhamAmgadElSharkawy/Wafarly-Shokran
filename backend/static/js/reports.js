@@ -92,7 +92,7 @@ const rawData = JSON.parse( document.getElementById( 'transactionsPerCategory' )
 const days = [...new Set(rawData.map(item => item.date))];
 const categories = [...new Set(rawData.map(item => item.category__name))];
 
-const formattedMonths = months.map(dateString => {
+const formattedMonths = days.map(dateString => {
     const dateObj = new Date(dateString);
     return dateObj.toLocaleDateString('en-US', {day:'2-digit', month: 'short', year: 'numeric'});
 });
