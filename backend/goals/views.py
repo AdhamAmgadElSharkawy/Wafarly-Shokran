@@ -2,10 +2,15 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Goal
 from decimal import Decimal
+from django.utils import timezone
 
 @login_required
 def goal_list(request):
     goals = Goal.objects.filter(user=request.user)
+    for goal in goals:
+        if goal.deadline <= timezone.now():
+            goal.iscompleted = False
+            goal.save()
     return render(request, 'goals.html', {'goals': goals})
 
 @login_required
@@ -37,6 +42,8 @@ def goal_edit(request, pk):
         goal.target_amount = request.POST.get('target_amount')
         goal.start_date = request.POST.get('start_date')
         goal.deadline = request.POST.get('deadline')
+        if goal.current_amount >= Decimal(request.POST.get('target_amount')):
+            goal.iscompleted = True
         goal.save()
         return redirect('/goals/')
     
@@ -50,14 +57,7 @@ def goal_delete(request, pk):
         goal.delete()
         return redirect('/goals/')
     return render(request, 'goals.html', {'goal': goal})
-
-@login_required
-def goal_mark_completed(request, pk):
-    goal = get_object_or_404(Goal, pk=pk, user=request.user)
-    goal.iscompleted = True
-    goal.save()
-    return redirect('/goals/')
-
+    
 @login_required
 def add_funds(request, pk):
     goal = get_object_or_404(Goal, pk=pk, user=request.user)
@@ -68,3 +68,5 @@ def add_funds(request, pk):
             goal.iscompleted = True
         goal.save()
     return redirect('/goals/')
+
+    

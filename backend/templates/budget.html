@@ -1,62 +1,119 @@
 {%extends 'base.html'%}
 {% load static %}
 
-{% block extra_css %}
+{% block extra_css %}   
 <link rel="stylesheet" href="{%static 'css/budget.css'%}">
 {% endblock extra_css %}
 
 {% block content %}
 <section class="budget-main-container">
-    
+
     <div class="budget-header">
         <h1>Budgets</h1>
         <p>Control your spending, set monthly limits.</p>
     </div>
-    
-    
-    <div class="budget-form-card">
-        <div class="form-header">
-            <h2 id="formTitle"><span>+</span> Create New Budget</h2>
-        </div>
-        
-        <form class="budget-form" id="budgetForm">
-            <div class="form-group">
-                <label for="categorySelect">Spending Category *</label>
-                <select id="categorySelect" name="category" required>
-                    <option value="" disabled selected>— Select a category —</option>
-                    <option value="Food">Food</option>
-                    <option value="Transportation">Transportation</option>
-                    <option value="Shopping">Shopping</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Education">Education</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="budgetAmount">Budget Amount ($) *</label>
-                <input type="number" id="budgetAmount" name="amount" step="1" min="0.00" placeholder="e.g., 300.00"
-                required>
-                <small class="field-hint">Positive number only</small>
-            </div>
-            
-            <div class="form-group">
-                <label for="budgetPeriod">Budget Period (Month & Year)</label>
-                <input type="month" id="budgetPeriod" name="period" required>
-                <small class="field-hint">Select the month and year for this budget</small>
-            </div>
-            
-            <div class="form-group checkbox-group">
-                <label class="checkbox-label">
-                    <input type="checkbox" id="alertEnabled" name="alertEnabled">
-                    <span>Alert when spending reaches 80% of budget</span>
-                </label>
-            </div>
-            
-            <div class="form-actions">
-                <button type="submit" class="btn-primary" id="submitBudgetBtn">Create Budget</button>
-                <button type="reset" class="btn-secondary" id="resetFormBtn">Clear</button>
-            </div>
-        </form>
+
+    <div class="create_budget_button">
+        <button type="button" id="open_budget_modal_btn">+ Create Budget</button>
     </div>
+
+    <ul class="budgets_list">
+        {% for budget in budgets %}
+        <li class="budgets_list_item">
+            <h2 class="budget_title">{{ budget.category }}</h2>
+            <ul class="budgets_sublist">
+                <li class="budgets_sublist_item">Amount ${{ budget.limit }}</li>
+                <li class="budgets_sublist_item">Period {{ budget.end_date|date:"F Y" }}</li>
+                <li class="budgets_sublist_item">Alert {{ budget.over_limit_alert|yesno:"Enabled,Disabled" }}</li>
+            </ul>
+            <div class="buttons">
+                <button class="edit_button" type="button"
+                    onclick="openEditModal(
+                        '{{ budget.pk }}',
+                        '{{ budget.category.id }}',
+                        '{{ budget.limit }}',
+                        '{{ budget.end_date|date:"Y-m" }}',
+                        {{ budget.over_limit_alert|yesno:"true,false" }}
+                    )">Edit</button>
+                <form method="POST" action="{% url 'budget_delete' budget.pk %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="delete_button">Delete</button>
+                </form>
+            </div>
+        </li>
+        {% empty %}
+            <p>No budgets found. Start by creating a new budget!</p>
+        {% endfor %}
+    </ul>
+
+    <!-- Create Budget Modal -->
+    <div class="modal" id="budget_modal">
+        <div class="content">
+            <span class="close-btn" id="close_budget_modal_btn">&times;</span>
+            <h2>Create New Budget</h2>
+            <form method="POST" action="{% url 'budget_create' %}">
+                {% csrf_token %}
+                <div class="inputs">
+                    <label for="budget_category">Spending Category</label>
+                    <select id="budget_category" name="category" required>
+                        <option value="" disabled selected>Select category</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <label for="budget_amount">Budget Amount ($)</label>
+                    <input type="number" id="budget_amount" name="amount" min="0" required>
+
+                    <label for="budget_period">Budget Period</label>
+                    <input type="month" id="budget_period" name="period" required>
+
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="alertEnabled">
+                        <span>Enable alerts</span>
+                    </label>
+
+                    <button type="submit" class="submit_btn">Create Budget</button>
+                    <button type="button" id="cancel_budget_btn" class="cancel_btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Budget Modal -->
+    <div class="modal" id="edit_budget_modal">
+        <div class="content">
+            <span class="close-btn" id="close_edit_budget_modal_btn">&times;</span>
+            <h2>Edit Budget</h2>
+            <form id="edit_budget_form" method="POST">
+                {% csrf_token %}
+                <div class="inputs">
+                    <label for="edit_budget_category">Spending Category</label>
+                    <select id="edit_budget_category" name="category" required>
+                        <option value="" disabled selected>Select category</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <label for="edit_budget_amount">Budget Amount ($)</label>
+                    <input type="number" id="edit_budget_amount" name="amount" min="0" required>
+
+                    <label for="edit_budget_period">Budget Period</label>
+                    <input type="month" id="edit_budget_period" name="period" required>
+
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="edit_budget_alert" name="alertEnabled">
+                        <span>Enable alerts</span>
+                    </label>
+
+                    <button type="submit" class="submit_btn">Save Changes</button>
+                    <button type="button" id="cancel_edit_budget_btn" class="cancel_btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </section>
+<script src="{% static 'js/budget.js' %}"></script>
 {% endblock content %}

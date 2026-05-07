@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'transactions.apps.TransactionsConfig',
     'goals.apps.GoalsConfig',
     'reports.apps.ReportsConfig',
+    'budget.apps.BudgetConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
