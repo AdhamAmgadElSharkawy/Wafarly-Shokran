@@ -4,6 +4,8 @@ from django.conf import settings
 # Create your models here.
 class Category(models.Model):
     name=models.CharField(max_length=50)
+    type_choices = [('i', 'income'), ('e', 'expense')]
+    type = models.CharField(max_length=1, choices=type_choices, default='e')
     def __str__(self):
         return self.name
 
