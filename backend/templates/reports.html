@@ -8,7 +8,7 @@
 {% block extra_js %}
     {{ ti|json_script:"income-data" }}
     {{ te|json_script:"expense-data" }}
-    {{ monthlyData|json_script:"monthly-chart-data" }}
+    {{ dailyData|json_script:"daily-chart-data" }}
     {{ transPerCategory|json_script:"transactionsPerCategory" }}
 
     <script src="{% static 'js/charts.js' %}"></script>
@@ -20,8 +20,18 @@
 {% block content %}
     <div class="header">
         <h1>Reports</h1>
+        <div class="select_period">
+            <select id="timeFilter" onchange="window.location.href='?period=' + this.value">
+                <option value="all" {% if request.GET.period == 'all' or not request.GET.period %}selected{% endif %}>All Time</option>
+                <option value="this_month" {% if request.GET.period == 'this_month' %}selected{% endif %}>Current Month</option>
+                <option value="last_month" {% if request.GET.period == 'last_month' %}selected{% endif %}>Pervous Month</option>
+                <option value="this_year" {% if request.GET.period == 'this_year' %}selected{% endif %}>Current Year</option>
+                <option value="last_year" {% if request.GET.period == 'last_year' %}selected{% endif %}>Pervous Year</option>
+            </select>
+        </div>
         <div class="export_report"><button type="button" onclick="exportChartsToExcel()">Export Report</button></div>
     </div>
+
     <div class="stats_group">
         <div class="total_income stat">
             <span class="stat_title">Total Icome</span>

@@ -2,16 +2,16 @@ const ctx1 = document.getElementById('incomeExpenseChart').getContext('2d');
 const ctx2 = document.getElementById('categorySpendingChart').getContext('2d');
 const totalIncome = JSON.parse(document.getElementById('income-data').textContent);
 const totalExpense = JSON.parse(document.getElementById('expense-data').textContent);
-const monthlyData = JSON.parse(document.getElementById('monthly-chart-data').textContent);
+const dailyData = JSON.parse(document.getElementById('daily-chart-data').textContent);
 
 const chartLabels = [];
 const incomeData = [];
 const expenseData = [];
 const savingData = [];
 
-monthlyData.forEach( item => {
-    const dateObj = new Date(item.month);
-    chartLabels.push(dateObj.toLocaleString('en-US', { month: 'short', year: 'numeric' }));
+dailyData.forEach( item => {
+    const dateObj = new Date(item.date);
+    chartLabels.push(dateObj.toLocaleString('en-US', { day:'2-digit', month: 'short', year: 'numeric' }));
     incomeData.push(item.total_income || 0);
     expenseData.push( item.total_expense || 0 );
     savingData.push((item.totalIncome || 0) - (item.total_expense || 0));
@@ -89,12 +89,12 @@ function IncomeExpenseChartSheet() {
 
 
 const rawData = JSON.parse( document.getElementById( 'transactionsPerCategory' ).textContent );
-const months = [...new Set(rawData.map(item => item.month))];
+const days = [...new Set(rawData.map(item => item.date))];
 const categories = [...new Set(rawData.map(item => item.category__name))];
 
-const formattedMonths = months.map(dateString => {
+const formattedMonths = days.map(dateString => {
     const dateObj = new Date(dateString);
-    return dateObj.toLocaleDateString('en-US', {month: 'short', year: 'numeric'});
+    return dateObj.toLocaleDateString('en-US', {day:'2-digit', month: 'short', year: 'numeric'});
 });
 
 const dataLookup = {};
@@ -103,15 +103,15 @@ rawData.forEach( item => {
     if (!dataLookup[item.category__name]) {
         dataLookup[item.category__name] = {};
     }
-    dataLookup[item.category__name][item.month] = item.total_amount;
+    dataLookup[item.category__name][item.date] = item.total_amount;
 });
 
 const chartDatasets = categories.map(category => {
     return {
         label: category,
-        data: months.map( month => {
-            const dateObj = new Date(month);
-            return dataLookup[category][month] || 0; 
+        data: days.map( day => {
+            const dateObj = new Date(day);
+            return dataLookup[category][day] || 0; 
         }),
         borderWidth: 2,
     };
