@@ -8,7 +8,7 @@
 {% block extra_js %}
     {{ ti|json_script:"income-data" }}
     {{ te|json_script:"expense-data" }}
-    {{ monthlyData|json_script:"monthly-chart-data" }}
+    {{ dailyData|json_script:"daily-chart-data" }}
     {{ transPerCategory|json_script:"transactionsPerCategory" }}
 
     <script src="{% static 'js/charts.js' %}"></script>
