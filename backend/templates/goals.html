@@ -17,8 +17,10 @@
             <h2 class="goal_title">{{ goal.title }}</h2>
             <ul class="goals_sublist">
                 <li class="goals_sublist_item">Target ${{ goal.target_amount }}</li>
+                <li class="goals_sublist_item">Current ${{ goal.current_amount }}</li>
                 <li class="goals_sublist_item">Start Date {{ goal.start_date }}</li>
                 <li class="goals_sublist_item">Deadline {{ goal.deadline|date:"Y-m-d" }}</li>
+                    <li class="goals_sublist_item">Status: {{ goal.iscompleted|yesno:"Completed,Not Completed" }}</li>
             </ul>
             <div class="buttons">
                 <button class="add_fund_button" type="button"
@@ -29,8 +31,8 @@
                         '{{ goal.pk }}',
                         '{{ goal.title }}',
                         '{{ goal.target_amount }}',
-                        '{{ goal.start_date|date:'Y-m-d' }}',
-                        '{{ goal.deadline|date:'Y-m-d' }}'
+                        '{{ goal.start_date|date:"Y-m-d" }}',
+                        '{{ goal.deadline|date:"Y-m-d" }}'
                     )">Edit</button>
 
                 <form method="POST" action="{% url 'goal_delete' goal.pk %}" style="display:inline;">
