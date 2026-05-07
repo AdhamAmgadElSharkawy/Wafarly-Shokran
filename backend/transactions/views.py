@@ -8,17 +8,20 @@ from .models import Transaction, Category
 @login_required
 def transaction_page(request):
     transactions = Transaction.objects.filter(user=request.user).order_by('-date_time')
-    return render(request, 'transaction.html', {"transactions": transactions})
+    #return render(request, 'transaction.html', {"transactions": transactions})
+    categories = Category.objects.all() 
+    return render(request, 'transaction.html', {
+        "transactions": transactions,
+        "categories": categories
+    })
+
 
 
 def add_transaction(request):
     if request.method == "POST":
         data = json.loads(request.body)
 
-        category, _ = Category.objects.get_or_create(
-            name=data.get("category"),
-            user=request.user
-        )
+        category = get_object_or_404(Category, id=data.get("category_id"))
 
         Transaction.objects.create(
             user=request.user,
@@ -44,10 +47,7 @@ def edit_transaction(request, id):
     if request.method == "POST":
         data = json.loads(request.body)
 
-        category, _ = Category.objects.get_or_create(
-            name=data.get("category"),
-            user=request.user
-        )
+        category = get_object_or_404(Category, id=data.get("category_id"))
 
         transaction.description = data.get("description")
         transaction.amount = data.get("amount")
@@ -60,6 +60,7 @@ def edit_transaction(request, id):
     return JsonResponse({
         "description": transaction.description,
         "amount": str(transaction.amount),
-        "category": transaction.category.name,
+        #"category": transaction.category.name,
+        "category_id": transaction.category.id,
         "type": transaction.type
     })
