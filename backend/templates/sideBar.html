@@ -4,27 +4,27 @@
         <p>for personal finance</p>
     </div>
     <ul>
-        <li class="sideBar-item active">
-            <a href="dashboard.html">
+        <li class="sideBar-item {% if request.resolver_match.url_name == 'dashboard' %}active{%endif%}" >
+            <a href="{% url 'dashboard' %}">
                 <span>dashboard</span>
             </a>
         </li>
-        <li class="sideBar-item">
+        <li class="sideBar-item {% if request.resolver_match.url_name == 'transactions' %}active{%endif%}">
             <a href="{% url 'transactions' %}">
                 <span>transactions</span>
             </a>
         </li>
-        <li class="sideBar-item">
+        <li class="sideBar-item {% if request.resolver_match.url_name == 'budget' %}active{%endif%}">
             <a href="budget.html">
                 <span>Budget</span>
             </a>
         </li>
-        <li class="sideBar-item">
+        <li class="sideBar-item {% if request.resolver_match.url_name == 'goals' %}active{%endif%}">
             <a href="goals.html">
                 <span>goals</span>
             </a>
         </li>
-        <li class="sideBar-item">
+        <li class="sideBar-item {% if request.resolver_match.url_name == 'reports' %}active{%endif%}">
             <a href="{%url 'reports'%}">
                 <span>reports</span>
             </a>
@@ -36,6 +36,5 @@
             <p>{{user.email}}</p>
         </div>
         <a href="{% url 'logout' %}">Logout</a>
-        </a>
     </div>
 </aside>
