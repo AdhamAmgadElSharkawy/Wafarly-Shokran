@@ -33,7 +33,7 @@ def budget_create(request):
 @login_required
 def budget_list(request):
     budgets = Budget.objects.filter(user=request.user)
-    categories = Category.objects.all()
+    categories = Category.objects.all().filter(type='e')
     return render(request, 'budget.html', {'budgets': budgets , 'categories': categories})
 
 @login_required
