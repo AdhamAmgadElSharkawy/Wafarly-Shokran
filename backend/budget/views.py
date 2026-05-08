@@ -22,7 +22,7 @@ def budget_create(request):
             user=request.user,
             category=category,
             limit=limit,
-            end_date=end_date + '-01',
+            end_date=end_date,
             over_limit_alert=over_limit_alert
         )
         return redirect('/budget/')
@@ -51,7 +51,7 @@ def budget_edit(request, pk):
 
         budget.category = category
         budget.limit = limit
-        budget.end_date = end_date + '-01'
+        budget.end_date = end_date
         budget.over_limit_alert = over_limit_alert
         budget.save()
         return redirect('/budget/')

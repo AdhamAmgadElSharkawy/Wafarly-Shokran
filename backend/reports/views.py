@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from transactions.models import Transaction
-from django.db.models.functions import TruncMonth,TruncDay,TruncDate
+from django.db.models.functions import TruncMonth,TruncDate
 from django.db.models import Sum,Q,Count
 from django.utils import timezone
 import datetime

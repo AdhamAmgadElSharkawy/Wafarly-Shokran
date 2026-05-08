@@ -6,7 +6,9 @@ from transactions.models import Category
 class Budget(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     category=models.ForeignKey(Category,on_delete=models.CASCADE)
+    current=models.DecimalField(max_digits=10,decimal_places=2,default=0)
     limit=models.DecimalField(max_digits=10,decimal_places=2)
+    start_date=models.DateField(auto_now_add=True)
     end_date=models.DateField()
     over_limit_alert=models.BooleanField()
 
