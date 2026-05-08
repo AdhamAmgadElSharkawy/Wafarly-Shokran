@@ -6,6 +6,12 @@ from django.utils import timezone
 
 @login_required
 def goal_list(request):
+    """
+    Retrieves and displays a list of all saving goals for the authenticated user.
+    
+    Dynamically checks the deadline of each goal against the current time. 
+    If the deadline has passed, it ensures the goal's status is updated.
+    """
     goals = Goal.objects.filter(user=request.user)
     for goal in goals:
         if goal.deadline <= timezone.now():
@@ -15,6 +21,12 @@ def goal_list(request):
 
 @login_required
 def goal_create(request):
+    """
+    Handles the creation of a new financial goal.
+    
+    If the request is POST, extracts the goal details (title, target amount, dates)
+    and creates a new Goal object linked to the current user, initialized as incomplete.
+    """
     if request.method == 'POST':
         title = request.POST.get('title')
         target_amount = request.POST.get('target_amount')
@@ -35,6 +47,13 @@ def goal_create(request):
 
 @login_required
 def goal_edit(request, pk):
+    """
+    Handles updating the details of an existing goal.
+    
+    Fetches the goal by its primary key. On a POST request, updates its fields.
+    Also checks if the updated target_amount has already been met by the current_amount,
+    and updates the 'iscompleted' status accordingly.
+    """
     goal = get_object_or_404(Goal, pk=pk, user=request.user)
 
     if request.method == 'POST':
@@ -52,6 +71,12 @@ def goal_edit(request, pk):
 
 @login_required
 def goal_delete(request, pk):
+    """
+    Handles the deletion of a specific goal.
+    
+    Requires a POST request to execute the deletion for security.
+    Redirects back to the goals list upon successful deletion.
+    """
     goal = get_object_or_404(Goal, pk=pk, user=request.user)
     if request.method == 'POST':
         goal.delete()
@@ -60,6 +85,13 @@ def goal_delete(request, pk):
     
 @login_required
 def add_funds(request, pk):
+    """
+    Adds funds to the current progress of a specific goal.
+    
+    On a POST request, retrieves the added amount, increments the goal's current_amount,
+    and checks if the goal's target_amount has been reached or exceeded. 
+    If so, marks the goal as completed.
+    """
     goal = get_object_or_404(Goal, pk=pk, user=request.user)
     if request.method == 'POST':
         amount = request.POST.get('amount')

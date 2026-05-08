@@ -6,6 +6,13 @@ from transactions.models import Transaction
 from .models import User
 # Create your views here.
 def signup(request):
+    """
+    Handles the user registration process.
+
+    Extracts user details from a POST request, validates that the passwords match, 
+    and creates a new User instance in the database.
+    Logs the user in upon successful creation and redirects to the dashboard.
+    """
     if request.method =='POST':
 
         firstName = request.POST.get('first_name')
@@ -39,6 +46,12 @@ def signup(request):
     return render(request,'signup.html')
 
 def login_view(request):
+    """
+    Handles user authentication and login using email and password.
+
+    Finds the user by email, authenticates them using Django's built-in 
+    authenticate method, and redirects to the dashboard if successful.
+    """
     if request.method =='POST':
         Email = request.POST.get('email')
         passWord = request.POST.get('password')
@@ -56,12 +69,24 @@ def login_view(request):
     return render(request,'login.html')
 
 def logout_view(request):
+    """
+    Logs out the currently authenticated user and redirects to the login page.
+    """
     logout(request)
     return redirect('login')
 
 
 @login_required(login_url='login')
 def dashboard(request):
+    """
+    Renders the main dashboard for the user with financial summaries.
+
+    Calculates and provides the following context to the template:
+    - Total and average income/expenses.
+    - Total current balance and savings rate percentage.
+    - Expense totals grouped by category (for chart rendering).
+    - A list of the 5 most recent transactions.
+    """
     user_transactions = Transaction.objects.filter(user=request.user)
     avg_income = user_transactions.filter(type='i').aggregate(Avg('amount'))['amount__avg']or 0
     avg_expenses = user_transactions.filter(type='e').aggregate(Avg('amount'))['amount__avg']or 0

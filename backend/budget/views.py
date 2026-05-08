@@ -8,6 +8,12 @@ from transactions.models import Category
 
 @login_required
 def budget_create(request):
+    """
+    Handles the creation of a new budget for the authenticated user.
+    
+    If the request method is POST, extracts form data to create a new Budget instance.
+    Otherwise, renders the budget creation form with available categories.
+    """
     categories = Category.objects.all()
     
     if request.method == 'POST':
@@ -32,12 +38,22 @@ def budget_create(request):
 
 @login_required
 def budget_list(request):
+    """
+    Retrieves and displays a list of all budgets for the authenticated user.
+    Also fetches expense categories ('e') to populate the budget creation/edit forms.
+    """
     budgets = Budget.objects.filter(user=request.user)
     categories = Category.objects.all().filter(type='e')
     return render(request, 'budget.html', {'budgets': budgets , 'categories': categories})
 
 @login_required
 def budget_edit(request, pk):
+    """
+    Handles updating an existing budget.
+    
+    Fetches the user's budget by its primary key (pk) and updates its fields
+    if a POST request is received. Redirects back to the budget list afterwards.
+    """
     budget = Budget.objects.get(id=pk, user=request.user)
     categories = Category.objects.all()
 
@@ -60,6 +76,13 @@ def budget_edit(request, pk):
 
 @login_required
 def budget_delete(request, pk):
+    """
+    Handles the deletion of a specific budget.
+    
+    If the request method is POST, deletes the budget identified by pk 
+    for the current user and redirects to the budget list.
+    Otherwise, renders a confirmation page for the deletion.
+    """
     budget = Budget.objects.get(id=pk, user=request.user)
     if request.method == 'POST':
         budget.delete()

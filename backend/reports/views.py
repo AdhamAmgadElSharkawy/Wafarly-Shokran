@@ -9,7 +9,24 @@ import datetime
 # Create your views here.
 @login_required(login_url='login')
 def reports(request):
+    """
+    Renders the financial reports and analytics page for the authenticated user.
 
+    This view handles the aggregation and filtering of transaction data based on 
+    a specified time period (this_month, last_month, this_year, last_year, or all).
+    
+    It performs several database-level aggregations:
+    - Calculates total income, total expenses, and the net balance.
+    - Computes the average monthly savings based on the distinct months available.
+    - Aggregates daily income and expense trends for chronological charts.
+    - Groups expense transactions by category and date to show spending patterns.
+
+    Args:
+        request: The HTTP request object, which may contain a 'period' GET parameter.
+
+    Returns:
+        HttpResponse: Renders the 'reports.html' template with the aggregated financial data in the context.
+    """
     today = timezone.now().date()
     period=request.GET.get('period','all')
     transactions_data = Transaction.objects.filter(user=request.user)
