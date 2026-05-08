@@ -18,7 +18,7 @@ This project highlights a robust MVT (Model-View-Template) architecture, demonst
 
 ## Demo
 
-
+https://github.com/user-attachments/assets/25b9c75e-75e1-4bf0-be0e-0867378da604
 
 ---
 
