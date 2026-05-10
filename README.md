@@ -100,10 +100,13 @@ To build and run this project, you need:
 - **Create financial goals**
 - **Track progress towards goals**
 
+### Reports & Alerts
+- **Automated Email Notifications (SMTP):** Instantly alerts users via email when their spending reaches 80% of their established category limits.
+- **Financial Reports:** Generates structured summaries of users' financial data, making it easier to review monthly/yearly spending habits.
+
 ### User Authentication & Profile
 - **Secure Sign Up / Login**
 - **User-specific data isolation**
-
 ---
 
 ## Build & Run
