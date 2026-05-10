@@ -59,16 +59,16 @@ class Transaction(models.Model):
         if is_new:
             from budget.models import Budget
             
-            print(f"--- DEBUG: 1. Is New? {is_new} | Type: {self.type} ---")
 
-            transaction_date = timezone.now().date()
-            print(f"--- DEBUG: 3. Transaction Date is: {transaction_date} ---")
+
+            transaction_date = timezone.localtime(self.date_time).date()
+
 
             budgets_to_update = Budget.objects.filter(
                 user=self.user,
                 category=self.category,
-                start_date__lte=self.date_time.date(),
-                end_date__gte=self.date_time.date()
+                start_date__lte=transaction_date,
+                end_date__gte=transaction_date
             )
             
             for budget in budgets_to_update:
